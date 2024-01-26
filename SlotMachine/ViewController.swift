@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import AudioToolbox
+
 
 class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -21,12 +23,12 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return 60
+        return 80
     }
     
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let title = symbols[row]
-        let fontSize: CGFloat = 60.0
+        let fontSize: CGFloat = 120.0
         let attributes: [NSAttributedString.Key: Any] = [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
             NSAttributedString.Key.foregroundColor: UIColor.black
@@ -64,19 +66,25 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
             creditsLabel.text = "Credits: \(playerCredits)"
             spinBTN.isEnabled = false
             
+            //AudioServicesPlaySystemSound(1104)
+
+            
             UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveEaseOut], animations: {
                 let randomIndex1 = Int.random(in: 0..<self.symbols.count)
                 self.slotsPV.selectRow(randomIndex1, inComponent: 0, animated: true)
+                AudioServicesPlaySystemSound(1104)
             }) { (completed) in
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveEaseOut], animations: {
                         let randomIndex2 = Int.random(in: 0..<self.symbols.count)
                         self.slotsPV.selectRow(randomIndex2, inComponent: 1, animated: true)
+                        AudioServicesPlaySystemSound(1104)
                     }) { (completed) in
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveEaseOut], animations: {
                                 let randomIndex3 = Int.random(in: 0..<self.symbols.count)
                                 self.slotsPV.selectRow(randomIndex3, inComponent: 2, animated: true)
+                                AudioServicesPlaySystemSound(1104)
                             }) { (completed) in
                                 self.spinBTN.isEnabled = true
                                 self.checkWin()
